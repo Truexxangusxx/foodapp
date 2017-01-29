@@ -1,3 +1,15 @@
 page-mapa {
+    #map {
+        width: 100%;
+        height: 50%;
+    }
+
+    ion-item{
+    margin-bottom:0px !important;
+}
+ion-list{
+    padding-left: 0px;
+    padding-right: 0px;
+}
 
 }

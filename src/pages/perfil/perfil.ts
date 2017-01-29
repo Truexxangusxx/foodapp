@@ -34,7 +34,7 @@ export class PerfilPage {
       let loading = this.loadingCtrl.create({ content: 'Pensando ...' });
       loading.present(loading);
 
-      var link = 'http://192.168.0.11:8000/auth_token?token={'+val+'}';
+      var link = 'https://movilapp-xxangusxx.c9users.io/auth_token?token={'+val+'}';
       var datos = JSON.stringify({ });
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -68,7 +68,7 @@ export class PerfilPage {
     let loading = this.loadingCtrl.create({ content: 'Pensando ...' });
     loading.present(loading);
 
-    var link = 'http://192.168.0.11:8000/ActualizarTipoUsuario';
+    var link = 'https://movilapp-xxangusxx.c9users.io/ActualizarTipoUsuario';
     var datos = JSON.stringify({user_id:this.user['id'], tipo:this.user['tipo'] });
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

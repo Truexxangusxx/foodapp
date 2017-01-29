@@ -28,7 +28,7 @@ export class RegistroPage {
     loading.present(loading);
 
 
-    var link = 'http://192.168.0.11:8000/signup';
+    var link = 'https://movilapp-xxangusxx.c9users.io/signup';
     var datos = JSON.stringify({ name: this.nombre, email: this.email, password: this.password, password_confirmation: this.repassword });
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');

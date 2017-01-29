@@ -1,18 +1,23 @@
-<!--
-  Generated template for the Mapa page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>mapa</ion-title>
+  <ion-navbar color="verde">
+    <ion-title>buscar</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="contenido">
+  <div id="map"></div>
+  <br>
 
+  <ion-list>
+    <ion-item *ngFor="let proveedor of proveedores">
+      <ion-thumbnail item-left>
+        <img src="https://movilapp-xxangusxx.c9users.io/marca">
+      </ion-thumbnail>
+      <h2>{{proveedor.nombre}}</h2>
+      <p>{{proveedor.direccion}}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>

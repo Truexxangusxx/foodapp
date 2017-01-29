@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 import { MapaPage } from '../mapa/mapa';
 import { HomePage } from '../home/home';
+import { MapaproveedorPage } from '../mapaproveedor/mapaproveedor';
 import { Storage } from '@ionic/storage';
 
 /*
@@ -33,7 +34,7 @@ export class GustosPage {
 
     storage.get('token').then((val) => {
 
-      var link = 'http://192.168.0.11:8000/auth_token?token={' + val + '}';
+      var link = 'https://movilapp-xxangusxx.c9users.io/auth_token?token={' + val + '}';
       var datos = JSON.stringify({});
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -54,7 +55,7 @@ export class GustosPage {
     })
 
 
-    var link = 'http://192.168.0.11:8000/GustosListar';
+    var link = 'https://movilapp-xxangusxx.c9users.io/GustosListar';
     var datos = JSON.stringify({});
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -82,25 +83,34 @@ export class GustosPage {
 
 
   guardar() {
-    //this.navCtrl.push(MapaPage);
-    console.log(this.gustos);
-    var link = 'http://192.168.0.11:8000/GustosAgregar';
-    var datos = JSON.stringify({user_id:1, gusto_id:1});
+    console.log(this.user);
+    var link = 'https://movilapp-xxangusxx.c9users.io/GustosAgregar';
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    for (let entry of this.gustos) {
+      var datos = JSON.stringify({ user_id: this.user.id, gusto_id: entry['id'] });
+      if (entry['ok']) {
+        this.http.post(link, datos, { headers: headers })
+          .map(res => res.json())
+          .subscribe(data => {
 
-    this.http.post(link, datos, { headers: headers })
-      .map(res => res.json())
-      .subscribe(data => {
+            if (data['error']) {
+              console.log(data['msg']);
+            }
+            else {
 
-        if (data['error']) {
-          console.log(data['msg']);
-        }
-        else {
-          console.log('todo bien');
-        }
+            }
 
-      });
+          });
+      }
+    }
+    if (this.user["tipo"] == "2") {
+      this.navCtrl.push(MapaproveedorPage);
+    }
+    else {
+      this.navCtrl.push(MapaPage);
+    }
+
   }
 
 

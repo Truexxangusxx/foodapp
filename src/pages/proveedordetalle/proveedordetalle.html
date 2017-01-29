@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar color="negro">
+    <ion-title>datos basicos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="contenido">
+
+  <ion-list>
+    <ion-item>
+      <ion-input placeholder="Nombre" clearInput type="text" [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Direccion" clearInput type="text" [(ngModel)]="direccion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Horario" clearInput type="text" [(ngModel)]="horario"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button class="enlace ingresar" (click)="guardar()">Guardar</button>
+
+</ion-content>
