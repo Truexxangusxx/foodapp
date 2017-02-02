@@ -6,7 +6,8 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
-
+import { FileChooser } from 'ionic-native';
+import { Transfer } from 'ionic-native';
 
 
 @Component({
@@ -15,10 +16,12 @@ import { HomePage } from '../home/home';
 })
 export class ProveedordetallePage {
 
-  user = {id:''};
+  user = { id: '' };
   nombre;
   direccion;
   horario;
+  uri;
+  nombreimagen="";
 
 
   constructor(public navCtrl: NavController
@@ -38,6 +41,45 @@ export class ProveedordetallePage {
   }
 
 
+  upload(uri) {
+    let loading = this.loadingCtrl.create({ content: 'Pensando ...' });
+    loading.present(loading);
+
+    const fileTransfer = new Transfer();
+    var options: any;
+
+    options = {
+      fileKey: 'archivo',
+      fileName: this.user.id + '.jpg',
+      headers: {}
+    }
+    fileTransfer.upload(uri, "https://movilapp-xxangusxx.c9users.io/SubirImagen", options)
+      .then((data) => {
+        setTimeout(() => {
+          this.nombreimagen = "https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=" + this.user.id + ".jpg";
+          loading.dismiss();
+        }, 1000);
+      }, (err) => {
+        let alert = this.alertCtrl.create({
+          title: 'url',
+          subTitle: 'error inesperado',
+          buttons: ['OK']
+        });
+        alert.present();
+      })
+  }
+
+
+  buscarimagen() {
+    this.nombreimagen = "";
+    FileChooser.open().then(uri => //this.user.id
+    {
+
+      this.upload(uri);
+
+    }
+    );
+  }
 
   autenticacion() {
     this.storage.get('token').then((val) => {

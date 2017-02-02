@@ -22,5 +22,10 @@
   </ion-list>
 
   <button ion-button class="enlace ingresar" (click)="guardar()">Guardar</button>
+  <button ion-button class="enlace ingresar" (click)="buscarimagen()">buscarimagen</button>
+
+
+  <img *ngIf="nombreimagen!=''" [src]="nombreimagen"/>
+
 
 </ion-content>
