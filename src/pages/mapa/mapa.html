@@ -7,16 +7,17 @@
 </ion-header>
 
 
-<ion-content padding class="contenido">
+<ion-content class="contenido">
   <div id="map"></div>
   <br>
 
   <ion-list>
     <ion-item *ngFor="let proveedor of proveedores">
       <ion-thumbnail item-left>
-        <img src="https://movilapp-xxangusxx.c9users.io/marca">
+        <img src="https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen={{proveedor.id}}.jpg">
       </ion-thumbnail>
       <h2>{{proveedor.nombre}}</h2>
+      <h3>{{proveedor.horario}}</h3>
       <p>{{proveedor.direccion}}</p>
     </ion-item>
   </ion-list>

@@ -9,6 +9,10 @@
 
 <ion-content padding class="contenido">
 
+
+  <button ion-button class="enlace ingresar" (click)="buscarimagen()">Cargar Imagen</button>
+  <ion-img *ngIf="nombreimagen!=''" [src]="nombreimagen"></ion-img>
+
   <ion-list>
     <ion-item>
       <ion-input placeholder="Nombre" clearInput type="text" [(ngModel)]="nombre"></ion-input>
@@ -22,10 +26,7 @@
   </ion-list>
 
   <button ion-button class="enlace ingresar" (click)="guardar()">Guardar</button>
-  <button ion-button class="enlace ingresar" (click)="buscarimagen()">buscarimagen</button>
 
-
-  <img *ngIf="nombreimagen!=''" [src]="nombreimagen"/>
 
 
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
@@ -21,7 +21,7 @@ export class ProveedordetallePage {
   direccion;
   horario;
   uri;
-  nombreimagen="";
+  nombreimagen = "";
 
 
   constructor(public navCtrl: NavController
@@ -30,6 +30,7 @@ export class ProveedordetallePage {
     , public loadingCtrl: LoadingController
     , public http: Http
     , public storage: Storage
+    , private zone: NgZone
   ) { }
 
   ionViewDidLoad() {
@@ -55,10 +56,8 @@ export class ProveedordetallePage {
     }
     fileTransfer.upload(uri, "https://movilapp-xxangusxx.c9users.io/SubirImagen", options)
       .then((data) => {
-        setTimeout(() => {
-          this.nombreimagen = "https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=" + this.user.id + ".jpg";
-          loading.dismiss();
-        }, 1000);
+        this.nombreimagen = "https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=" + this.user.id + ".jpg";
+        loading.dismiss();
       }, (err) => {
         let alert = this.alertCtrl.create({
           title: 'url',
@@ -71,12 +70,9 @@ export class ProveedordetallePage {
 
 
   buscarimagen() {
-    this.nombreimagen = "";
     FileChooser.open().then(uri => //this.user.id
     {
-
-      this.upload(uri);
-
+      this.nombreimagen = uri;
     }
     );
   }
@@ -130,6 +126,7 @@ export class ProveedordetallePage {
           alert.present();
         }
         else {
+          this.upload(this.nombreimagen);
           this.navCtrl.push(ProveedordetallePage);
         }
 
