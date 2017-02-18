@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 import { ProveedordetallePage } from '../pages/proveedordetalle/proveedordetalle';
 import { PerfilproveedorPage } from '../pages/perfilproveedor/perfilproveedor';
 import { MenuPage } from '../pages/menu/menu';
+import { RutaPage } from '../pages/ruta/ruta';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { MenuPage } from '../pages/menu/menu';
     ProveedordetallePage,
     PerfilproveedorPage,
     MenuPage,
+    RutaPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -42,6 +44,7 @@ import { MenuPage } from '../pages/menu/menu';
     ProveedordetallePage,
     PerfilproveedorPage,
     MenuPage,
+    RutaPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserService, Storage]
 })

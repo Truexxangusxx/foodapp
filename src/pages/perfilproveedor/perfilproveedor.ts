@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { MenuPage } from '../menu/menu';
+import { RutaPage } from '../ruta/ruta';
 
 @Component({
   selector: 'page-perfilproveedor',
@@ -181,6 +182,9 @@ export class PerfilproveedorPage {
 
   vermenu(id) {
     this.navCtrl.push(MenuPage, { proveedor_id: id });
+  }
+  ruta(id) {
+    this.navCtrl.push(RutaPage, { proveedor_id: id });
   }
 
 }
