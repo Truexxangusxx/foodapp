@@ -7,6 +7,9 @@ import { Http } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 import { PerfilPage } from '../perfil/perfil';
 import { Storage } from '@ionic/storage';
+import { MapaPage } from '../mapa/mapa';
+import { MapaproveedorPage } from '../mapaproveedor/mapaproveedor';
+import { GustosPage } from '../gustos/gustos';
 
 @Component({
   selector: 'page-home',
@@ -49,6 +52,7 @@ export class HomePage {
           .subscribe(data => {
             this.contenido = data;
             console.log(this.contenido);
+            console.log(this.contenido['user']);
 
             loading.dismiss();
 
@@ -61,7 +65,22 @@ export class HomePage {
               alert.present();
             }
             else {
-              this.navCtrl.push(PerfilPage);
+              if (this.contenido['user'].tipo != null) {
+                if (this.contenido['user']['gustos'].length > 0) {
+                  if (this.contenido['user'].tipo == 1) {
+                    this.navCtrl.push(MapaPage);
+                  }
+                  if (this.contenido['user'].tipo == 2) {
+                    this.navCtrl.push(MapaproveedorPage);
+                  }
+                }
+                else {
+                  this.navCtrl.push(GustosPage);
+                }
+              }
+              else {
+                this.navCtrl.push(PerfilPage);
+              }
             }
 
           });
@@ -101,10 +120,29 @@ export class HomePage {
           alert.present();
         }
         else {
-          this.navCtrl.push(PerfilPage);
+          if (this.contenido['user'].tipo != null) {
+            if (this.contenido['user']['gustos'].length > 0) {
+              if (this.contenido['user'].tipo == 1) {
+                this.navCtrl.push(MapaPage);
+              }
+              if (this.contenido['user'].tipo == 2) {
+                this.navCtrl.push(MapaproveedorPage);
+              }
+            }
+            else {
+              this.navCtrl.push(GustosPage);
+            }
+          }
+          else {
+            this.navCtrl.push(PerfilPage);
+          }
         }
 
       });
+
+  }
+
+  validarusuario(user_id) {
 
   }
 

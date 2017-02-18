@@ -2,21 +2,21 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 /*
-  Generated class for the PerfilproveedorPage page.
+  Generated class for the Ruta page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-perfilproveedor-page',
-  templateUrl: 'perfilproveedor-page.html'
+  selector: 'page-ruta',
+  templateUrl: 'ruta.html'
 })
-export class PerfilproveedorPagePage {
+export class RutaPage {
 
   constructor(public navCtrl: NavController) {}
 
   ionViewDidLoad() {
-    console.log('Hello PerfilproveedorPagePage Page');
+    console.log('Hello RutaPage Page');
   }
 
 }

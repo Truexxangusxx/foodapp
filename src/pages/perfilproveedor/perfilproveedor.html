@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar color="verde">
+    <ion-title>Perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="contenido">
+
+  <ion-card>
+
+    <img class="imagen" [src]="nombreimagen" />
+
+    <ion-card-content>
+      <ion-card-title>
+        <ion-item class="nopadding">
+        Hamburguesas
+        <ion-icon color="verde" name="heart" isActive="{{onlike}}" item-right (click)="like()"></ion-icon>
+        </ion-item>
+
+      </ion-card-title>
+
+
+      <p class="nombre">{{proveedor.nombre}}</p>
+      <p class="direccion">{{proveedor.direccion}}</p>
+      <p class="horario">{{proveedor.horario}}</p>
+
+    </ion-card-content>
+
+    <ion-item>
+      <ion-icon name='heart' isActive="true" item-left color="verde" ></ion-icon>
+      Seguidores
+      <ion-badge item-right color="verde" >{{likes}}</ion-badge>
+    </ion-item>
+    <div class="centrar">
+        <button ion-button color="verde" (click)="vermenu(proveedor.id)">
+          Ver menu
+        </button>
+        <button ion-button color="verde" >
+          Obtener ruta
+        </button>
+    </div>
+
+  </ion-card>
+
+
+
+</ion-content>

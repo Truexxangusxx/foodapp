@@ -5,7 +5,9 @@ page-home {
 }
 
 .btnfacebook{
-    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 }
@@ -33,10 +35,16 @@ ion-list{
 }
 
 .enlace{
-    background: transparent !important;
-    border: 1px solid white !important;
+    // background: transparent !important;
+    // border: 1px solid white !important;
     margin-left: auto;
     margin-right: auto;
     display: block;
     min-width: 120px;
+}
+
+p{
+    font-size: 13px;
+    font-weight: bold;
+    color: black;
 }

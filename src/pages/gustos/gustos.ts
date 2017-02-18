@@ -95,10 +95,10 @@ export class GustosPage {
           .subscribe(data => {
 
             if (data['error']) {
-              console.log(data['msg']);
+              console.log("error: "+data['msg']);
             }
             else {
-
+              console.log(data['msg']);
             }
 
           });

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {
   GoogleMap,
@@ -12,6 +12,7 @@ import {
 import { Geolocation } from 'ionic-native';
 import { Headers, RequestOptions } from '@angular/http';
 import { Http } from '@angular/http';
+import { PerfilproveedorPage } from '../perfilproveedor/perfilproveedor';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class MapaPage {
   xlat;
   xlon;
   proveedores;
-
+  searchQuery: string = '';
 
   constructor(public navCtrl: NavController
     , public platform: Platform
@@ -147,6 +148,27 @@ export class MapaPage {
     this.platform.ready().then(() => {
       this.getCurrentPosition();
     });
+  }
+
+  ir(id){
+    this.navCtrl.push(PerfilproveedorPage,{proveedor_id:id} );
+  }
+
+  getItems(ev: any) {
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.proveedores = this.proveedores.filter((item) => {
+        return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+        this.getCurrentPosition();
+    }
+    else{
+      this.proveedorlistar();
+      this.getCurrentPosition();
+    }
   }
 
 }

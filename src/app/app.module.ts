@@ -10,6 +10,8 @@ import { MapaproveedorPage } from '../pages/mapaproveedor/mapaproveedor';
 import { UserService } from '../providers/user-service';
 import { Storage } from '@ionic/storage';
 import { ProveedordetallePage } from '../pages/proveedordetalle/proveedordetalle';
+import { PerfilproveedorPage } from '../pages/perfilproveedor/perfilproveedor';
+import { MenuPage } from '../pages/menu/menu';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { ProveedordetallePage } from '../pages/proveedordetalle/proveedordetalle
     MapaPage,
     MapaproveedorPage,
     ProveedordetallePage,
+    PerfilproveedorPage,
+    MenuPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -36,6 +40,8 @@ import { ProveedordetallePage } from '../pages/proveedordetalle/proveedordetalle
     MapaPage,
     MapaproveedorPage,
     ProveedordetallePage,
+    PerfilproveedorPage,
+    MenuPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserService, Storage]
 })

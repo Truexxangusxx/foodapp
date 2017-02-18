@@ -6,6 +6,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Http } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 import {HomePage} from '../home/home';
+import {MapaPage} from '../mapa/mapa';
 import {GustosPage} from '../gustos/gustos';
 
 /*

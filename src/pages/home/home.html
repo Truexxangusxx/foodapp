@@ -11,18 +11,16 @@
       <ion-input placeholder="Password" clearInput type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
-<button ion-button icon-left class="btnfacebook">
-  <ion-icon name="logo-facebook"></ion-icon>
-  Conectar con facebook
-</button>
+    <button ion-button icon-left class="btnfacebook">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Conectar con facebook
+    </button>
+    <br>
+    <br>
 
-<button ion-button class="enlace registrarme" [navPush]="registroPage">
-  Registrarme
-</button>
-<button ion-button class="enlace ingresar" (click)="ingresar()">
-  Ingresar
-</button>
-
+    <button class="enlace" ion-button color="light" outline [navPush]="registroPage">Registrarme</button>
+    <br>
+    <button class="enlace" ion-button color="light" outline (click)="ingresar()">Ingresar</button>
 
   </ion-list>
 

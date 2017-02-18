@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { FileChooser } from 'ionic-native';
 import { Transfer } from 'ionic-native';
+import { PerfilproveedorPage } from '../perfilproveedor/perfilproveedor';
 
 
 @Component({
@@ -127,7 +128,7 @@ export class ProveedordetallePage {
         }
         else {
           this.upload(this.nombreimagen);
-          this.navCtrl.push(ProveedordetallePage);
+          this.navCtrl.push(PerfilproveedorPage);
         }
 
       });
