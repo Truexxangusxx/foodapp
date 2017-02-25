@@ -13,7 +13,7 @@ import { ProveedordetallePage } from '../pages/proveedordetalle/proveedordetalle
 import { PerfilproveedorPage } from '../pages/perfilproveedor/perfilproveedor';
 import { MenuPage } from '../pages/menu/menu';
 import { RutaPage } from '../pages/ruta/ruta';
-
+import { FamiliaPage } from '../pages/familia/familia';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { RutaPage } from '../pages/ruta/ruta';
     PerfilproveedorPage,
     MenuPage,
     RutaPage,
+    FamiliaPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -45,6 +46,7 @@ import { RutaPage } from '../pages/ruta/ruta';
     PerfilproveedorPage,
     MenuPage,
     RutaPage,
+    FamiliaPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserService, Storage]
 })

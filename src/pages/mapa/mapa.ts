@@ -26,21 +26,39 @@ export class MapaPage {
   xlon;
   proveedores;
   searchQuery: string = '';
+  private marcadores = false;
 
   constructor(public navCtrl: NavController
     , public platform: Platform
     , public alertCtrl: AlertController
     , public http: Http
   ) {
-      console.log('constructor');
+    console.log('constructor');
     this.platform.ready().then(() => {
       console.log('constructor platform');
-      this.proveedorlistar();
+
     });
+  }
+
+  ionViewDidEnter() {
+    this.proveedorlistar();
+  }
+
+  onPageWillLeave() {
+    /*this.map.clear();
+    this.map.off();
+    this.map.on();*/
+    console.log('nos vamos');
+    //this.map.clear();
+    //this.map.refreshLayout();
   }
 
 
   getCurrentPosition() {
+    if (this.marcadores) {
+      //this.map.clear();
+      console.log('se limpio');
+    }
     Geolocation.getCurrentPosition()
       .then(position => {
 
@@ -78,6 +96,7 @@ export class MapaPage {
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
       console.log('Map is ready!');
       this.mapearproveedores();
+      this.marcadores = true;
     });
 
 
@@ -106,6 +125,12 @@ export class MapaPage {
       });
   }
 
+  removemarkers() {
+    this.map.remove();
+  }
+
+
+
   proveedorlistar() {
 
     Geolocation.getCurrentPosition()
@@ -132,6 +157,9 @@ export class MapaPage {
               });
               alert.present();
             }
+            else {
+              this.getCurrentPosition();
+            }
 
           });
 
@@ -140,18 +168,18 @@ export class MapaPage {
   }
 
   ngAfterViewInit() {
-    
   }
 
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      this.getCurrentPosition();
+      this.proveedorlistar();
     });
   }
 
-  ir(id){
-    this.navCtrl.push(PerfilproveedorPage,{proveedor_id:id} );
+  ir(id) {
+    //this.removemarkers();
+    this.navCtrl.push(PerfilproveedorPage, { proveedor_id: id });    
   }
 
   getItems(ev: any) {
@@ -162,12 +190,13 @@ export class MapaPage {
     if (val && val.trim() != '') {
       this.proveedores = this.proveedores.filter((item) => {
         return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-        this.getCurrentPosition();
+      });
+      this.map.clear();
+      this.mapearproveedores();
     }
-    else{
+    else {
       this.proveedorlistar();
-      this.getCurrentPosition();
+      //this.mapearproveedores();
     }
   }
 

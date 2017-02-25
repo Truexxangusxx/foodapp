@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar color="negro">
+    <ion-title>Categoria</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content color="verde">
+
+  <ion-list radio-group [(ngModel)]="id">
+    <ion-item ion-item *ngFor="let gusto of gustos">
+      <ion-label>{{ gusto.nombre }}</ion-label>
+      <ion-radio value="{{gusto.id}}" color="dark" checked="false"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-footer>
+    <ion-toolbar color="verde">
+      <button ion-button outline color="light" class="enlace ingresar" (click)="guardar()">Guardar</button>
+    </ion-toolbar>
+  </ion-footer>
+
+
+</ion-content>

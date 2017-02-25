@@ -10,7 +10,7 @@
 <ion-content class="contenido">
   
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
-  <div id="map"></div>
+    <div #map id="map"></div>
   <ion-list>
     <ion-item *ngFor="let proveedor of proveedores" (click)="ir(proveedor.id)">
       <ion-thumbnail item-left>

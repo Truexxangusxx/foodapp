@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 import { MapaPage } from '../mapa/mapa';
 import { MapaproveedorPage } from '../mapaproveedor/mapaproveedor';
 import { GustosPage } from '../gustos/gustos';
+import { FamiliaPage } from '../familia/familia';
 
 @Component({
   selector: 'page-home',
@@ -21,6 +22,7 @@ export class HomePage {
   contenido = {};
   email = "";
   password = "";
+  proveedor = {};
 
   constructor(public navCtrl: NavController
     , public loadingCtrl: LoadingController
@@ -65,6 +67,7 @@ export class HomePage {
               alert.present();
             }
             else {
+
               if (this.contenido['user'].tipo != null) {
                 if (this.contenido['user']['gustos'].length > 0) {
                   if (this.contenido['user'].tipo == 1) {
@@ -75,7 +78,12 @@ export class HomePage {
                   }
                 }
                 else {
-                  this.navCtrl.push(GustosPage);
+                  if (this.contenido['user'].tipo == 1) {
+                    this.navCtrl.push(GustosPage);
+                  }
+                  if (this.contenido['user'].tipo == 2) {
+                    this.proveedorporusuario(this.contenido['user'].id);
+                  }
                 }
               }
               else {
@@ -130,7 +138,12 @@ export class HomePage {
               }
             }
             else {
-              this.navCtrl.push(GustosPage);
+              if (this.contenido['user'].tipo == 1) {
+                this.navCtrl.push(GustosPage);
+              }
+              if (this.contenido['user'].tipo == 2) {
+                this.proveedorporusuario(this.contenido['user'].id);
+              }
             }
           }
           else {
@@ -144,6 +157,32 @@ export class HomePage {
 
   validarusuario(user_id) {
 
+  }
+
+  proveedorporusuario(id) {
+    var link = 'https://movilapp-xxangusxx.c9users.io/proveedorporusuario';
+    var datos = JSON.stringify({ user_id: id });
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(link, datos, { headers: headers })
+      .map(res => res.json())
+      .subscribe(data => {
+
+        if (data['error']) {
+          console.log('error inesperado');
+        }
+        else {
+          this.proveedor = data['proveedor'];
+          if (this.proveedor['gusto_id'] != null) {
+            this.navCtrl.push(MapaproveedorPage);
+          }
+          else {
+            this.navCtrl.push(FamiliaPage);
+          }
+        }
+
+      });
   }
 
 

@@ -1,40 +1,42 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { LoadingController } from 'ionic-angular';
 import { Headers, RequestOptions } from '@angular/http';
 import { Http } from '@angular/http';
 import { AlertController } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { MapaPage } from '../mapa/mapa';
-import { GustosPage } from '../gustos/gustos';
-import { FamiliaPage } from '../familia/familia';
+import { HomePage } from '../home/home';
+import { MapaproveedorPage } from '../mapaproveedor/mapaproveedor';
+import { Storage } from '@ionic/storage';
 
-/*
-  Generated class for the Perfil page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
-  selector: 'page-perfil',
-  templateUrl: 'perfil.html'
+  selector: 'page-familia',
+  templateUrl: 'familia.html'
 })
-export class PerfilPage {
-  user = { tipo: '' };
-  contenido = {};
+export class FamiliaPage {
+
+
+  gustos = [];
+  user = { id: '' };
+  id;
+  
+
 
   constructor(public navCtrl: NavController
-    , public storage: Storage
-    , public loadingCtrl: LoadingController
     , public http: Http
     , public alertCtrl: AlertController
-  ) {
+    , public storage: Storage
+  ) { }
 
-    storage.get('token').then((val) => {
+  ionViewDidLoad() {
+    this.obtenerusuario();
+    this.listargustos();
+  }
 
-      let loading = this.loadingCtrl.create({ content: 'Pensando ...' });
-      loading.present(loading);
+
+
+  obtenerusuario() {
+    this.storage.get('token').then((val) => {
 
       var link = 'https://movilapp-xxangusxx.c9users.io/auth_token?token={' + val + '}';
       var datos = JSON.stringify({});
@@ -44,70 +46,46 @@ export class PerfilPage {
       this.http.post(link, datos, { headers: headers })
         .map(res => res.json())
         .subscribe(data => {
-          this.contenido = data;
 
-          loading.dismiss();
-
-          if (this.contenido['error']) {
+          if (data['error']) {
             this.navCtrl.push(HomePage);
           }
           else {
-            this.user = this.contenido['user'];
+            this.user = data['user'];
           }
 
         });
 
     })
 
-
-
-
-
   }
-
-  enviar() {
-
-    let loading = this.loadingCtrl.create({ content: 'Pensando ...' });
-    loading.present(loading);
-
-    var link = 'https://movilapp-xxangusxx.c9users.io/ActualizarTipoUsuario';
-    var datos = JSON.stringify({ user_id: this.user['id'], tipo: this.user['tipo'] });
+  listargustos() {
+    var link = 'https://movilapp-xxangusxx.c9users.io/GustosListar';
+    var datos = JSON.stringify({});
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    console.log(datos);
 
     this.http.post(link, datos, { headers: headers })
       .map(res => res.json())
       .subscribe(data => {
-        this.contenido = data;
+        this.gustos = data["gustos"];
 
-        loading.dismiss();
-
-        if (this.contenido['error']) {
+        if (data['error']) {
           let alert = this.alertCtrl.create({
             title: 'Error',
-            subTitle: this.contenido['msg'],
+            subTitle: "Ocurrio un error inesperado",
             buttons: ['OK']
           });
           alert.present();
         }
-        else {
-          this.guardarproveedor();
-          if(this.user['tipo']=='1'){
-            this.navCtrl.push(GustosPage);
-          }
-          if(this.user['tipo']=='2'){
-            this.navCtrl.push(FamiliaPage)
-          }
-        }
+
 
       });
-
   }
 
-  guardarproveedor() {
+  guardar(){
     var link = 'https://movilapp-xxangusxx.c9users.io/ProveedorGuardar';
-    var datos = JSON.stringify({ user_id: this.user['id']});
+    var datos = JSON.stringify({ user_id: this.user['id'], gusto_id: this.id});
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log(datos);
@@ -125,7 +103,8 @@ export class PerfilPage {
           console.log(data['msg']);
         }
         else {
-          console.log('se registro el proveedor');
+          console.log('actualizado');
+          this.navCtrl.push(MapaproveedorPage);
         }
 
       });
@@ -135,8 +114,5 @@ export class PerfilPage {
 
 
 
-  ionViewDidLoad() {
-    console.log('Hello PerfilPage Page');
-  }
 
 }

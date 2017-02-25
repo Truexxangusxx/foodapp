@@ -20,11 +20,12 @@ import { Http } from '@angular/http';
 })
 export class RutaPage {
 
-  private map;
   private posicion;
+  private map;
   xlat;
   xlon;
   proveedor = { id: '', nombre: '', direccion: '', horario: '', lat: 0, lon: 0 };
+  private posicionproveedor;
 
   constructor(public navCtrl: NavController
     , public platform: Platform
@@ -62,6 +63,7 @@ export class RutaPage {
           this.proveedor = data['proveedor'];
           console.log(data['proveedor']);
           this.getCurrentPosition();
+          this.posicionproveedor=new GoogleMapsLatLng(this.proveedor.lat, this.proveedor.lon);
         }
 
       });
@@ -75,12 +77,11 @@ export class RutaPage {
         let lng = position.coords.longitude;
         this.posicion = new GoogleMapsLatLng(lat, lng);
 
-        this.loadMap();
+        this.loadMap2();
       });
   }
 
-  loadMap() {
-
+  loadMap2() {
     this.map = new GoogleMap('map3', {
       'backgroundColor': '#00bdd1',
       'controls': {
@@ -96,7 +97,7 @@ export class RutaPage {
         'zoom': true
       },
       'camera': {
-        'latLng': this.posicion,
+        'latLng': this.posicionproveedor,
         'tilt': 30,
         'zoom': 15,
         'bearing': 50
@@ -104,16 +105,11 @@ export class RutaPage {
     });
     this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
       console.log('Map is ready!');
-      this.mapearproveedores();
+      this.map.refreshLayout();
+      this.setMarker(this.posicionproveedor, this.proveedor.nombre);
     });
 
 
-  }
-
-  mapearproveedores() {
-    let punto = new GoogleMapsLatLng(this.proveedor.lat, this.proveedor.lon);
-    let nombre = this.proveedor.nombre;
-    this.setMarker(punto, nombre);
   }
 
   setMarker(punto, nombre) {

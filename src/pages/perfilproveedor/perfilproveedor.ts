@@ -116,7 +116,7 @@ export class PerfilproveedorPage {
   }
 
   like() {
-    /*
+    console.log(this.onlike);
     if (this.onlike) {
       this.onlike = false;
       this.likes--;
@@ -125,20 +125,23 @@ export class PerfilproveedorPage {
       this.onlike = true;
       this.likes++;
     }
-    */
-    console.log(this.onlike);
+  }
+
+  ionViewWillLeave() {
+    console.log('nos vamos');
     if (this.onlike) {
-      this.quitarlike();
-    }
-    else {
       this.darlike();
     }
+    else {
+      this.quitarlike();
+    }
+  }
 
-
+  ionViewDidEnter() {
+    this.likesuser();
   }
 
   darlike() {
-    console.log("vamos a dar like");
     var link = 'https://movilapp-xxangusxx.c9users.io/ingresarlike';
     var datos = JSON.stringify({ user_id: this.user.id, proveedor_id: this.proveedor.id });
     var headers = new Headers();
@@ -152,7 +155,6 @@ export class PerfilproveedorPage {
           console.log('error inesperado');
         }
         else {
-          this.likesuser();
           console.log("dimos like");
         }
 
@@ -173,7 +175,6 @@ export class PerfilproveedorPage {
           console.log('error inesperado');
         }
         else {
-          this.likesuser();
           console.log("quitamos like");
         }
 
