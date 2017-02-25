@@ -178,7 +178,7 @@ export class MapaPage {
   }
 
   ir(id) {
-    //this.removemarkers();
+    this.removemarkers();
     this.navCtrl.push(PerfilproveedorPage, { proveedor_id: id });    
   }
 
