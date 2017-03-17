@@ -8,9 +8,9 @@
 
 
 <ion-content class="contenido">
-  
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
-    <div #map id="map"></div>
+
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <div #map id="map"></div>
   <ion-list>
     <ion-item *ngFor="let proveedor of proveedores" (click)="ir(proveedor.id)">
       <ion-thumbnail item-left>
@@ -21,4 +21,27 @@
       <p>{{proveedor.direccion}}</p>
     </ion-item>
   </ion-list>
+
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar color="verde">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button outline color="light" class="enlace ingresar" (click)="misgustos()">
+  Mis Gustos
+</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button outline color="light" class="enlace ingresar" (click)="cambio()">
+  Cambiar clave
+</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-footer>

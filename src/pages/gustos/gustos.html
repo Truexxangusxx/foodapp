@@ -13,7 +13,7 @@
 
     <ion-item ion-item *ngFor="let gusto of gustos" (click)="itemSelected(gusto)">
       <ion-label>{{ gusto.nombre }}</ion-label>
-      <ion-checkbox [(ngModel)]="gusto.ok" color="dark" checked="false"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="gusto.status" color="dark" checked="{{gusto.status}}"></ion-checkbox>
     </ion-item>
 
   </ion-list>
@@ -24,7 +24,7 @@
 
 <ion-footer>
   <ion-toolbar color="verde">
-    <button ion-button outline color="light" class="enlace ingresar" (click)="guardar()">
+    <button ion-button outline color="light" class="enlace ingresar" (click)="limpiar()">
   Guardar
 </button>
   </ion-toolbar>

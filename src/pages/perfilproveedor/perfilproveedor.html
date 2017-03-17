@@ -17,7 +17,8 @@
       <ion-card-title>
         <ion-item class="nopadding">
         Hamburguesas
-        <ion-icon color="verde" name="heart" isActive="{{onlike}}" item-right (click)="like()"></ion-icon>
+        <ion-icon *ngIf="onlike" color="verde" name="heart" md="md-heart" item-right (click)="like()"></ion-icon>
+        <ion-icon *ngIf="!onlike" color="verde" name="heart-outline" md="md-heart-outline" item-right (click)="like()"></ion-icon>
         </ion-item>
 
       </ion-card-title>
@@ -45,6 +46,7 @@
 
   </ion-card>
 
-
+<br>
+<br>
 
 </ion-content>

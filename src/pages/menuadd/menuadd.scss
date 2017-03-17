@@ -1,12 +1,14 @@
-page-proveedordetalle {
+page-menuadd {
     ion-img{
         margin-left: auto;
         margin-right: auto;
         width: 250px;
         height: 250px;
     }
-    button.boton{
-        display: block;
-        width: 100%;
+
+    ion-col{
+        text-align: center !important;
     }
+
+    
 }

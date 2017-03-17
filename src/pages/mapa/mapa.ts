@@ -13,6 +13,8 @@ import { Geolocation } from 'ionic-native';
 import { Headers, RequestOptions } from '@angular/http';
 import { Http } from '@angular/http';
 import { PerfilproveedorPage } from '../perfilproveedor/perfilproveedor';
+import { GustosPage } from '../gustos/gustos';
+import { CambioPage } from '../cambio/cambio';
 
 
 @Component({
@@ -180,6 +182,13 @@ export class MapaPage {
   ir(id) {
     this.removemarkers();
     this.navCtrl.push(PerfilproveedorPage, { proveedor_id: id });    
+  }
+  
+  misgustos() {
+    this.navCtrl.push(GustosPage);    
+  }
+  cambio() {
+    this.navCtrl.push(CambioPage);    
   }
 
   getItems(ev: any) {

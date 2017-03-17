@@ -11,6 +11,9 @@ import { MapaPage } from '../mapa/mapa';
 import { MapaproveedorPage } from '../mapaproveedor/mapaproveedor';
 import { GustosPage } from '../gustos/gustos';
 import { FamiliaPage } from '../familia/familia';
+import { ProveedordetallePage } from '../proveedordetalle/proveedordetalle';
+import { ToastController } from 'ionic-angular';
+
 
 @Component({
   selector: 'page-home',
@@ -30,6 +33,7 @@ export class HomePage {
     , public alertCtrl: AlertController
     , public storage: Storage
     , public platform: Platform
+    , public toastCtrl: ToastController
   ) {
 
   }
@@ -74,7 +78,7 @@ export class HomePage {
                     this.navCtrl.push(MapaPage);
                   }
                   if (this.contenido['user'].tipo == 2) {
-                    this.navCtrl.push(MapaproveedorPage);
+                    this.navCtrl.push(ProveedordetallePage);
                   }
                 }
                 else {
@@ -134,7 +138,7 @@ export class HomePage {
                 this.navCtrl.push(MapaPage);
               }
               if (this.contenido['user'].tipo == 2) {
-                this.navCtrl.push(MapaproveedorPage);
+                this.navCtrl.push(ProveedordetallePage);
               }
             }
             else {
@@ -175,7 +179,7 @@ export class HomePage {
         else {
           this.proveedor = data['proveedor'];
           if (this.proveedor['gusto_id'] != null) {
-            this.navCtrl.push(MapaproveedorPage);
+            this.navCtrl.push(ProveedordetallePage);
           }
           else {
             this.navCtrl.push(FamiliaPage);
@@ -183,6 +187,42 @@ export class HomePage {
         }
 
       });
+  }
+
+  mensaje(texto) {
+    const toast = this.toastCtrl.create({
+      message: texto,
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  recuperar() {
+    if (this.email == '') {
+      this.mensaje('Coloque su correo');
+    }
+    else {
+      var link = 'https://movilapp-xxangusxx.c9users.io/sendemail';
+      var datos = JSON.stringify({ email: this.email });
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(link, datos, { headers: headers })
+        .map(res => res.json())
+        .subscribe(data => {
+
+          if (data['error']) {
+            console.log('error inesperado');
+          }
+          else {
+            this.mensaje('Se envio un mensaje a su correo');
+          }
+
+        });
+    }
+
   }
 
 

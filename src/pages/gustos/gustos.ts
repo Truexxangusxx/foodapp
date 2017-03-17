@@ -48,6 +48,7 @@ export class GustosPage {
           }
           else {
             this.user = data['user'];
+            this.gustoslistar();
           }
 
         });
@@ -55,8 +56,14 @@ export class GustosPage {
     })
 
 
+
+
+
+  }
+
+  gustoslistar() {
     var link = 'https://movilapp-xxangusxx.c9users.io/GustosListar';
-    var datos = JSON.stringify({});
+    var datos = JSON.stringify({ user_id: this.user.id });
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -64,7 +71,7 @@ export class GustosPage {
       .map(res => res.json())
       .subscribe(data => {
         this.gustos = data["gustos"];
-
+        console.log(this.gustos);
         if (data['error']) {
           let alert = this.alertCtrl.create({
             title: 'Error',
@@ -73,14 +80,31 @@ export class GustosPage {
           });
           alert.present();
         }
-
-
       });
-
-
   }
 
 
+  limpiar() {
+    var link = 'https://movilapp-xxangusxx.c9users.io/GustosLimpiar';
+    var datos = JSON.stringify({ user_id: this.user.id });
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(link, datos, { headers: headers })
+      .map(res => res.json())
+      .subscribe(data => {
+
+        if (data['error']) {
+          console.log('error al limpar gustos');
+        }
+        else {
+          console.log('se limpiaron los gustos');
+          this.guardar();
+        }
+
+      });
+
+  }
 
   guardar() {
     console.log(this.user);
@@ -89,13 +113,13 @@ export class GustosPage {
     headers.append('Content-Type', 'application/json');
     for (let entry of this.gustos) {
       var datos = JSON.stringify({ user_id: this.user.id, gusto_id: entry['id'] });
-      if (entry['ok']) {
+      if (entry['status']) {
         this.http.post(link, datos, { headers: headers })
           .map(res => res.json())
           .subscribe(data => {
 
             if (data['error']) {
-              console.log("error: "+data['msg']);
+              console.log("error: " + data['msg']);
             }
             else {
               console.log(data['msg']);

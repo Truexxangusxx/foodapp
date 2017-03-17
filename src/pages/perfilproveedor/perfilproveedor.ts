@@ -15,7 +15,7 @@ import { RutaPage } from '../ruta/ruta';
 export class PerfilproveedorPage {
   nombreimagen = "";
   proveedor = { id: '', nombre: '', direccion: '', horario: '', lat: '', lon: '' };
-  onlike = true;
+  onlike = false;
   likes = 0
   user = { tipo: '', id: '' };
   constructor(public navCtrl: NavController

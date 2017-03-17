@@ -14,6 +14,9 @@ import { PerfilproveedorPage } from '../pages/perfilproveedor/perfilproveedor';
 import { MenuPage } from '../pages/menu/menu';
 import { RutaPage } from '../pages/ruta/ruta';
 import { FamiliaPage } from '../pages/familia/familia';
+import { MenuproveedorPage } from '../pages/menuproveedor/menuproveedor';
+import { MenuaddPage } from '../pages/menuadd/menuadd';
+import { CambioPage } from '../pages/cambio/cambio';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { FamiliaPage } from '../pages/familia/familia';
     MenuPage,
     RutaPage,
     FamiliaPage,
+    MenuproveedorPage,
+    MenuaddPage,
+    CambioPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -47,6 +53,9 @@ import { FamiliaPage } from '../pages/familia/familia';
     MenuPage,
     RutaPage,
     FamiliaPage,
+    MenuproveedorPage,
+    MenuaddPage,
+    CambioPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, UserService, Storage]
 })

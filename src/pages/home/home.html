@@ -18,9 +18,25 @@
     <br>
     <br>
 
-    <button class="enlace" ion-button color="light" outline [navPush]="registroPage">Registrarme</button>
-    <br>
-    <button class="enlace" ion-button color="light" outline (click)="ingresar()">Ingresar</button>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button class="enlace" ion-button color="light" outline [navPush]="registroPage">Registro</button>
+        </ion-col>
+        <ion-col>
+          <button class="enlace" ion-button color="light" outline (click)="ingresar()">Ingresar</button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="centro">
+          <button ion-button clear (click)="recuperar()">Recuperar contraseña</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+
 
   </ion-list>
 

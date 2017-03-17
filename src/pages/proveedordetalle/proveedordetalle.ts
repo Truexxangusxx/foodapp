@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { Headers, RequestOptions } from '@angular/http';
@@ -9,6 +9,10 @@ import { HomePage } from '../home/home';
 import { FileChooser } from 'ionic-native';
 import { Transfer } from 'ionic-native';
 import { PerfilproveedorPage } from '../perfilproveedor/perfilproveedor';
+import { MenuPage } from '../menu/menu';
+import { MenuproveedorPage } from '../menuproveedor/menuproveedor';
+import { ToastController } from 'ionic-angular';
+import { Geolocation } from 'ionic-native';
 
 
 @Component({
@@ -22,7 +26,9 @@ export class ProveedordetallePage {
   direccion;
   horario;
   uri;
-  nombreimagen = "";
+  nombreimagen = "https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=noimg.jpg";
+  proveedor = { id: 0, nombre: '', direccion: '', horario: '', lat: 0, lon: 0 };
+  imagendespositivo=false;
 
 
   constructor(public navCtrl: NavController
@@ -32,6 +38,8 @@ export class ProveedordetallePage {
     , public http: Http
     , public storage: Storage
     , private zone: NgZone
+    , public toastCtrl: ToastController
+    , private navParams: NavParams
   ) { }
 
   ionViewDidLoad() {
@@ -39,7 +47,9 @@ export class ProveedordetallePage {
   }
 
   ngAfterViewInit() {
-    this.autenticacion();
+    let loading = this.loadingCtrl.create({ content: 'Pensando ...' });
+    loading.present(loading);
+    this.autenticacion(this.mensaje('Se recomienda imagenes de 250x250 y en jpg', loading.dismiss()));
   }
 
 
@@ -57,7 +67,7 @@ export class ProveedordetallePage {
     }
     fileTransfer.upload(uri, "https://movilapp-xxangusxx.c9users.io/SubirImagen", options)
       .then((data) => {
-        this.nombreimagen = "https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=" + this.user.id + ".jpg";
+        //this.nombreimagen = "https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=" + this.user.id + ".jpg";
         loading.dismiss();
       }, (err) => {
         let alert = this.alertCtrl.create({
@@ -66,7 +76,7 @@ export class ProveedordetallePage {
           buttons: ['OK']
         });
         alert.present();
-      })
+      });
   }
 
 
@@ -74,11 +84,12 @@ export class ProveedordetallePage {
     FileChooser.open().then(uri => //this.user.id
     {
       this.nombreimagen = uri;
+      this.imagendespositivo=true;
     }
     );
   }
 
-  autenticacion() {
+  autenticacion(funcion) {
     this.storage.get('token').then((val) => {
 
       var link = 'https://movilapp-xxangusxx.c9users.io/auth_token?token={' + val + '}';
@@ -95,6 +106,8 @@ export class ProveedordetallePage {
           }
           else {
             this.user = data['user'];
+            this.proveedorporusuario(this.user.id);
+            funcion;
           }
 
         });
@@ -108,7 +121,7 @@ export class ProveedordetallePage {
 
 
     var link = 'https://movilapp-xxangusxx.c9users.io/ProveedorGuardar';
-    var datos = JSON.stringify({ user_id: this.user.id, nombre: this.nombre, direccion: this.direccion, horario: this.horario });
+    var datos = JSON.stringify({ user_id: this.user.id, nombre: this.proveedor.nombre, direccion: this.proveedor.direccion, horario: this.proveedor.horario, lat: this.proveedor.lat, lon: this.proveedor.lon });
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     console.log(datos);
@@ -127,14 +140,67 @@ export class ProveedordetallePage {
           alert.present();
         }
         else {
-          this.upload(this.nombreimagen);
-          this.navCtrl.push(PerfilproveedorPage);
+          console.log('ingreso correctamente');
+          if(this.imagendespositivo){
+            this.upload(this.nombreimagen);
+          }
         }
 
       });
 
   }
 
+  mensaje(texto, funcion) {
+    const toast = this.toastCtrl.create({
+      message: texto,
+      showCloseButton: true,
+      closeButtonText: 'Ok',
+      position: 'top'
+    });
+    toast.present();
+    funcion;
+  }
+
+  alerta(texto) {
+    let alert = this.alertCtrl.create({
+      title: 'Mensaje',
+      subTitle: texto,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  proveedorporusuario(id) {
+    var link = 'https://movilapp-xxangusxx.c9users.io/proveedorporusuario';
+    var datos = JSON.stringify({ user_id: id });
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(link, datos, { headers: headers })
+      .map(res => res.json())
+      .subscribe(data => {
+        if (data['error']) {
+          console.log('error inesperado');
+        }
+        else {
+          this.proveedor = data['proveedor'];
+          this.nombreimagen = 'https://movilapp-xxangusxx.c9users.io/buscarimagen?imagen=' + this.proveedor.id + '.jpg';
+        }
+
+      });
+  }
+
+  gps() {
+    Geolocation.getCurrentPosition().then(pos => {
+      this.proveedor.lat = pos.coords.latitude;
+      this.proveedor.lon = pos.coords.longitude;
+      this.alerta('Presione guardar para actualizar su GPS');
+    });
+  }
+
+vermenu(id) {
+    this.navCtrl.push(MenuproveedorPage, { proveedor_id: id });
+  }
 
 
 }

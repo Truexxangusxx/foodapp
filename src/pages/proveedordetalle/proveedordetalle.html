@@ -10,22 +10,37 @@
 <ion-content padding class="contenido">
 
 
-  <button ion-button class="enlace ingresar" (click)="buscarimagen()">Cargar Imagen</button>
-  <ion-img *ngIf="nombreimagen!=''" [src]="nombreimagen"></ion-img>
-
+  <ion-img [src]="nombreimagen" (click)="buscarimagen()"></ion-img>
+  <br>
+  <br>
   <ion-list>
     <ion-item>
-      <ion-input placeholder="Nombre" clearInput type="text" [(ngModel)]="nombre"></ion-input>
+      <ion-input placeholder="Nombre" clearInput type="text" [(ngModel)]="proveedor.nombre"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input placeholder="Direccion" clearInput type="text" [(ngModel)]="direccion"></ion-input>
+      <ion-input placeholder="Direccion" clearInput type="text" [(ngModel)]="proveedor.direccion"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input placeholder="Horario" clearInput type="text" [(ngModel)]="horario"></ion-input>
+      <ion-input placeholder="Horario" clearInput type="text" [(ngModel)]="proveedor.horario"></ion-input>
     </ion-item>
   </ion-list>
 
-  <button ion-button class="enlace ingresar" (click)="guardar()">Guardar</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button outline color="light"  class="boton"  (click)="gps()">
+          GPS
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline color="light"  class="boton" (click)="vermenu(proveedor.id)">Menu</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline color="light" class="boton" (click)="guardar()">Guardar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 
 
