@@ -15,13 +15,13 @@
 
   <ion-list>
     <ion-item>
-      <ion-input placeholder="Password antiguo" clearInput type="password" ></ion-input>
+      <ion-input placeholder="Password antiguo" clearInput type="password" [(ngModel)]="lastpassword"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input placeholder="Password nuevo" clearInput type="password" ></ion-input>
+      <ion-input placeholder="Password nuevo" clearInput type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input placeholder="Password nuevo" clearInput type="password" ></ion-input>
+      <ion-input placeholder="Password nuevo" clearInput type="password" [(ngModel)]="repassword"></ion-input>
     </ion-item>
 
   </ion-list>
@@ -30,13 +30,13 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button outline color="light" class="enlace ingresar">
+          <button ion-button outline color="light" class="enlace ingresar" (click)="cambioclave()">
   Cambiar
 </button>
         </ion-col>
         <ion-col>
-          <button ion-button outline color="light" class="enlace ingresar">
-  Cancelar
+          <button ion-button outline color="light" class="enlace ingresar" (click)="salir()">
+  Salir
 </button>
         </ion-col>
       </ion-row>
